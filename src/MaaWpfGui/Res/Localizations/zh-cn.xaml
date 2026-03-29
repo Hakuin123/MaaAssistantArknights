@@ -917,6 +917,9 @@ C:\\leidian\\LDPlayer9。\n
 如果已通关更高难度导致看不到 ｢险境模拟｣ 或 ｢标准模拟｣，需手动选择一次 ｢险境模拟｣ 难度
 手动通关 ｢标准模拟｣ 可以更快的刷分
 只能刷等级奖励，拿蚀刻章得打完所有的 ｢关键目标｣</system:String>
+    <system:String x:Key="MiniGame@HYW">卫戍协议：何忆卫</system:String>
+    <system:String x:Key="MiniGame@HYWTip" xml:space="preserve">请从卫戍协议联机准备页面或已进入局内的页面开始。
+当前版本暂未完善异常退出处理</system:String>
     <system:String x:Key="MiniGame@OS">OS-喀兰贸易技术研发部</system:String>
     <system:String x:Key="MiniGame@OSTip">在活动主界面（右下角有 ｢开始重建｣ 处）开始任务。</system:String>
     <system:String x:Key="MiniGame@RM-TR-1">次生预案 RM-TR-1</system:String>

@@ -14,26 +14,17 @@
 		"action": "Stop"
 	},
 	"MiniGame@HYW@LobbyReadyAnchor": {
-		"doc": "卫戍协议联机准备页锚点；优先用模板图区分准备页",
+		"doc": ["图像：准备页左上角退出按钮","用途：卫戍协议联机准备页锚点"],
 		"template": "MiniGame@HYW@LobbyReadyAnchor.png",
 		"roi": [0, 0, 154, 143],
 		"next": [
-			"MiniGame@HYW@LobbyGameStarting",
 			"MiniGame@HYW@LobbyReadyButton",
 			"MiniGame@HYW@LobbyWaitStart"
 		]
 	},
-	"MiniGame@HYW@LobbyGameStarting": {
-		"doc": "判断“开始游戏按钮是否已被点击，当前只需等待进入游戏”",
-		"template": "MiniGame@HYW@LobbyGameStarting.png",
-		"roi": [1495, 898, 354, 171],
-		"postDelay": 3000,
-		"next": ["MiniGame@HYW@LobbyInGameAnchor", "MiniGame@HYW@LobbyWaitStart"]
-	},
 	"MiniGame@HYW@LobbyReadyButton": {
-		"doc": "准备页的准备就绪按钮；注意与局内准备阶段按钮区分",
+		"doc": ["图像：准备页的准备就绪按钮","用途：点击以准备就绪"],
 		"template": "MiniGame@HYW@LobbyReadyButton.png",
-		"roi": [1495, 900, 364, 166],
 		"action": "ClickSelf",
 		"postDelay": 1000,
 		"next": ["MiniGame@HYW@LobbyWaitStart"]
@@ -41,36 +32,25 @@
 	"MiniGame@HYW@LobbyWaitStart": {
 		"doc": "准备页等待开始；先处理关卡信息确认，再进入选策略或局内",
 		"algorithm": "JustReturn",
-		"postDelay": 3000,
+		"postDelay": 1000,
 		"next": [
 			"MiniGame@HYW@StrategyPrepareConfirm",
-			"MiniGame@HYW@StrategySelectAnchor",
 			"MiniGame@HYW@LobbyInGameAnchor",
-			"MiniGame@HYW@LobbyGameStarting",
 			"MiniGame@HYW@LobbyWaitStart"
 		]
 	},
-	"MiniGame@HYW@StrategySelectAnchor": {
-		"doc": "选策略界面锚点",
-		"template": "MiniGame@HYW@StrategySelectAnchor.png",
-		"roi": [533, 0, 381, 156],
-		"next": ["MiniGame@HYW@StrategyWaitTurn"]
-	},
 	"MiniGame@HYW@StrategyPrepareConfirm": {
-		"doc": "准备页点击准备就绪后、选择策略前的关卡信息确认按钮（不是准备页按钮）",
+		"doc": ["图像：关卡信息准备就绪按钮","用途：准备页开始模拟后，点击确认关卡信息"],
 		"template": "MiniGame@HYW@StrategyPrepareConfirm.png",
-		"roi": [1462, 904, 328, 170],
+        "roi": [990, 593, 212, 127],
 		"action": "ClickSelf",
-		"postDelay": 1500,
-		"next": [
-			"MiniGame@HYW@StrategySelectAnchor",
-			"MiniGame@HYW@StrategyWaitTurn"
-		]
+		"postDelay": 5000,
+		"next": ["MiniGame@HYW@StrategyWaitTurn"]
 	},
 	"MiniGame@HYW@StrategyWaitTurn": {
 		"doc": "等待轮到自己选择策略",
 		"algorithm": "JustReturn",
-		"postDelay": 2000,
+		"postDelay": 0,
 		"next": [
 			"MiniGame@HYW@StrategyMyTurnAnchor",
 			"MiniGame@HYW@LobbyInGameAnchor",
@@ -78,51 +58,59 @@
 		]
 	},
 	"MiniGame@HYW@StrategyMyTurnAnchor": {
-		"doc": "轮到自己选择策略的锚点",
+		"doc": ["图像：请选择策略 右上角提示","用途：轮到自己选择策略的锚点"],
 		"template": "MiniGame@HYW@StrategyMyTurnAnchor.png",
-		"roi": [1341, 0, 352, 197],
+		"roi": [880, 0, 260, 130],
+        "templThreshold": 0.3,
 		"next": ["MiniGame@HYW@StrategyScrollToBottom"]
 	},
 	"MiniGame@HYW@StrategyScrollToBottom": {
 		"doc": "右侧列表下滑到底部；采用固定滑动",
 		"algorithm": "JustReturn",
 		"action": "Swipe",
-		"specificRect": [1170, 520, 20, 120],
-		"rectMove": [0, -300, 0, 0],
-		"postDelay": 1000,
+		"specificRect": [820, 570, 200, 100],
+		"rectMove": [0, -400, 0, 0],
 		"next": ["MiniGame@HYW@StrategyScrollToBottom2"]
 	},
 	"MiniGame@HYW@StrategyScrollToBottom2": {
 		"doc": "再次下滑，尽量确保到达底部",
 		"algorithm": "JustReturn",
 		"action": "Swipe",
-		"specificRect": [1170, 520, 20, 120],
-		"rectMove": [0, -300, 0, 0],
-		"postDelay": 1200,
+		"specificRect": [820, 570, 200, 100],
+		"rectMove": [0, -400, 0, 0],
 		"next": ["MiniGame@HYW@StrategyDuckSelect"]
 	},
 	"MiniGame@HYW@StrategyDuckSelect": {
 		"doc": "选择鸭爵图标；优先模板匹配",
 		"template": "MiniGame@HYW@StrategyDuckSelect.png",
-		"roi": [943, 613, 249, 221],
+        "templThreshold": 0.6,
 		"action": "ClickSelf",
 		"postDelay": 1000,
 		"next": ["MiniGame@HYW@StrategyConfirmSelect"]
 	},
 	"MiniGame@HYW@StrategyConfirmSelect": {
-		"doc": "确认选择策略",
+		"doc": "确认选择策略后进入过渡等待循环，持续等待进入局内",
 		"template": "MiniGame@HYW@StrategyConfirmSelect.png",
-		"roi": [1529, 912, 338, 164],
+	       "roi": [1000, 590, 270, 130],
 		"action": "ClickSelf",
+		"postDelay": 3000,
+		"next": ["MiniGame@HYW@StrategyConfirmWaitInGame"]
+	},
+	"MiniGame@HYW@StrategyConfirmWaitInGame": {
+		"doc": "确认选择策略后的过渡等待；局内未出现时继续轮询",
+		"algorithm": "JustReturn",
 		"postDelay": 2000,
-		"next": ["MiniGame@HYW@LobbyInGameAnchor", "MiniGame@HYW@StrategyWaitTurn"]
+		"next": [
+			"MiniGame@HYW@LobbyInGameAnchor",
+			"MiniGame@HYW@StrategyConfirmWaitInGame"
+		],
 	},
 	"MiniGame@HYW@LobbyInGameAnchor": {
 		"doc": "局内锚点；用于识别已经进入游戏阶段",
 		"template": "MiniGame@HYW@LobbyInGameAnchor.png",
-		"roi": [10, 0, 171, 156],
+		"roi": [0, 0, 150, 150],
+		"postDelay": 1000,
 		"next": [
-			"MiniGame@HYW@NetworkDisconnected",
 			"MiniGame@HYW@BattleFinishedNext",
 			"MiniGame@HYW@BattleLoseContinueWatch",
 			"MiniGame@HYW@PrepReadyAnchor",
@@ -132,7 +120,7 @@
 	"MiniGame@HYW@PrepReadyAnchor": {
 		"doc": "局内回合准备阶段的准备就绪按钮；需与准备页按钮明确区分",
 		"template": "MiniGame@HYW@PrepReadyAnchor.png",
-		"roi": [1647, 87, 265, 144],
+		"roi": [1080, 40, 200, 130],
 		"next": ["MiniGame@HYW@PrepRefreshLoop"]
 	},
 	"MiniGame@HYW@PrepRefreshLoop": {
@@ -143,15 +131,15 @@
 	"MiniGame@HYW@PrepRefreshActive": {
 		"doc": "刷新手牌按钮可点击态",
 		"template": "MiniGame@HYW@PrepRefreshActive.png",
-		"roi": [1694, 613, 226, 158],
+        "templThreshold": 0.95,
+		"roi": [1107, 392, 173, 140],
 		"action": "ClickSelf",
-		"postDelay": 500,
 		"next": ["MiniGame@HYW@PrepRefreshLoop"]
 	},
 	"MiniGame@HYW@PrepReadyClick": {
 		"doc": "刷新不可点击后，点击准备就绪",
 		"template": "MiniGame@HYW@PrepReadyAnchor.png",
-		"roi": [1647, 87, 265, 144],
+		"roi": [1080, 40, 200, 130],
 		"action": "ClickSelf",
 		"postDelay": 1000,
 		"next": ["MiniGame@HYW@InGameWaitLoop"]
@@ -159,7 +147,7 @@
 	"MiniGame@HYW@BattleLoseContinueWatch": {
 		"doc": "失败后点击继续观战",
 		"template": "MiniGame@HYW@BattleLoseContinueWatch.png",
-		"roi": [540, 747, 309, 144],
+		"roi": [340, 480, 240, 130],
 		"action": "ClickSelf",
 		"postDelay": 1500,
 		"next": ["MiniGame@HYW@InGameWaitLoop"]
@@ -167,7 +155,7 @@
 	"MiniGame@HYW@BattleFinishedNext": {
 		"doc": "游戏结束后点击下一步",
 		"template": "MiniGame@HYW@BattleFinishedNext.png",
-		"roi": [1511, 911, 317, 158],
+		"roi": [980, 580, 295, 140],
 		"action": "ClickSelf",
 		"postDelay": 2000,
 		"next": [
@@ -176,39 +164,32 @@
 		]
 	},
 	"MiniGame@HYW@BattleFinishedWaitReturn": {
-		"doc": "等待回到同盟按钮出现",
+		"doc": "等待回到同盟按钮出现；超时后退出任务",
 		"algorithm": "JustReturn",
 		"postDelay": 2000,
+		"maxTimes": 15,
 		"next": [
 			"MiniGame@HYW@BattleReturnAlliance",
-			"MiniGame@HYW@BattleFinishedWaitReturn",
-			"MiniGame@HYW@FatalExit"
-		]
+			"MiniGame@HYW@BattleFinishedWaitReturn"
+		],
+		"exceededNext": ["MiniGame@HYW@FatalExit"]
 	},
 	"MiniGame@HYW@BattleReturnAlliance": {
 		"doc": "游戏结束后回到同盟",
 		"template": "MiniGame@HYW@BattleReturnAlliance.png",
-		"roi": [1621, 932, 288, 148],
+		"roi": [1060, 600, 220, 120],
 		"action": "ClickSelf",
-		"postDelay": 5000,
+		"postDelay": 3000,
 		"next": ["MiniGame@HYW@LobbyReadyAnchor", "MiniGame@HYW@FatalExit"]
 	},
-	"MiniGame@HYW@NetworkDisconnected": {
-		"doc": "网络连接中断提示，直接退出任务",
-		"algorithm": "OcrDetect",
-		"text": ["当前网络连接中断", "将离开模拟"],
-		"roi": [610, 380, 715, 200],
-		"action": "Stop"
-	},
 	"MiniGame@HYW@InGameWaitLoop": {
-		"doc": "局内总等待循环：依次处理断线、结算、失败、准备阶段、继续等待",
+		"doc": "局内总等待循环：依次处理结算、失败、准备阶段、继续等待",
 		"algorithm": "JustReturn",
 		"postDelay": 2000,
 		"next": [
-			"MiniGame@HYW@NetworkDisconnected",
+			"MiniGame@HYW@PrepReadyAnchor",
 			"MiniGame@HYW@BattleFinishedNext",
 			"MiniGame@HYW@BattleLoseContinueWatch",
-			"MiniGame@HYW@PrepReadyAnchor",
 			"MiniGame@HYW@InGameWaitLoop"
 		]
 	}
